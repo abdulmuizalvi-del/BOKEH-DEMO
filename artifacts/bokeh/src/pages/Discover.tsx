@@ -1,5 +1,6 @@
 import { AppLayout } from "@/components/layout/AppLayout";
 import { useState, useRef, useEffect } from "react";
+import { useLocation } from "wouter";
 import { Search, SlidersHorizontal, MapPin, Star, Zap, X, ChevronRight, Heart, Share2, ExternalLink } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -513,6 +514,7 @@ function DetailPanel({
   onLike: () => void;
   aiPulse: boolean;
 }) {
+  const [, navigate] = useLocation();
   const colors = MATCH_COLORS[p.accentColor];
   const glowBorder = GLOW_COLORS[p.accentColor];
 
@@ -621,7 +623,10 @@ function DetailPanel({
 
         {/* Actions */}
         <div className="flex gap-2">
-          <button className="flex-1 py-3 bg-gradient-to-r from-fuchsia-500 to-orange-500 text-white font-bold rounded-xl hover:shadow-[0_0_20px_rgba(217,70,239,0.4)] transition-all text-sm">
+          <button
+            onClick={() => navigate("/my-booking/1")}
+            className="flex-1 py-3 bg-gradient-to-r from-fuchsia-500 to-orange-500 text-white font-bold rounded-xl hover:shadow-[0_0_20px_rgba(217,70,239,0.4)] transition-all text-sm"
+          >
             Book Now
           </button>
           <button
