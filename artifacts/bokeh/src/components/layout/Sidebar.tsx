@@ -1,13 +1,14 @@
 import { Link, useLocation } from "wouter";
 import { 
   Aperture, LayoutDashboard, FolderOpen, Calendar, 
-  MessageSquare, Bell, Users, Settings, LifeBuoy, Sparkles, LogOut
+  MessageSquare, Bell, Users, Settings, LifeBuoy, Sparkles, LogOut, Compass
 } from "lucide-react";
 import { motion } from "framer-motion";
 import { useMessages, useNotifications } from "@/hooks/use-app-data";
 
 const NAV_ITEMS = [
   { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
+  { name: "Discover", href: "/discover", icon: Compass },
   { name: "Projects", href: "/projects", icon: FolderOpen },
   { name: "Booking", href: "/booking", icon: Calendar },
   { name: "Messages", href: "/messages", icon: MessageSquare, badge: "messages" },

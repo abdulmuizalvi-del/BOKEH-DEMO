@@ -11,6 +11,7 @@ import Onboarding from "@/pages/auth/Onboarding";
 
 // Main Pages
 import Dashboard from "@/pages/Dashboard";
+import Discover from "@/pages/Discover";
 import Projects from "@/pages/projects/Projects";
 import ProjectDetail from "@/pages/projects/ProjectDetail";
 import Messages from "@/pages/Messages";
@@ -30,6 +31,7 @@ function Router() {
       <Route path="/onboarding" component={Onboarding} />
       
       <Route path="/dashboard" component={Dashboard} />
+      <Route path="/discover" component={Discover} />
       <Route path="/projects" component={Projects} />
       <Route path="/projects/:id" component={ProjectDetail} />
       <Route path="/messages" component={Messages} />

@@ -42,7 +42,7 @@ export default function Onboarding() {
           </motion.div>
         </Link>
 
-        <Link href="/dashboard">
+        <Link href="/discover">
           <motion.div 
             whileHover={{ y: -5, scale: 1.02 }}
             className="cursor-pointer group relative bg-card border border-white/5 rounded-3xl p-8 hover:border-teal-500/50 transition-all duration-300"
