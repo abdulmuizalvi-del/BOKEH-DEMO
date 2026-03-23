@@ -1,0 +1,134 @@
+Create a fully interactive MVP demo for a startup called BOKEH, an AI-powered platform for photographers and clients.
+
+Use a dark modern UI with premium feel, soft gradients (teal, purple, orange glow), minimal, cinematic SaaS style. Match the design and layout from the provided screenshots.
+
+🎯 GOAL
+
+Build a clickable demo that simulates real product flow for investors. Focus on clarity, smooth transitions, and realistic interactions. No backend needed — use mock data.
+
+🧩 CORE USER FLOW
+1. Authentication Flow
+Login screen (email, password, Google login button)
+Signup screen (name, email, password)
+Onboarding screen:
+“How will you use BOKEH?”
+As a Creator
+As a Client
+
+👉 After selection → go to dashboard
+
+2. Main Dashboard Layout
+Left sidebar navigation:
+Dashboard
+Projects
+Booking
+Messages
+Notifications
+Clients
+Settings
+Include:
+“Upgrade to Pro” card
+Active tab highlight
+Clean spacing + glow effects
+3. Projects Page (IMPORTANT)
+Grid of project cards:
+Wedding
+Engagement
+Events
+Each card shows:
+Title
+Status (In Progress / Completed)
+Date
+
+👉 Clicking a project opens:
+
+4. Project Workspace (CORE MVP MOMENT)
+
+Create tabs:
+
+Workspace
+Final Gallery
+Project Details
+
+Inside Workspace:
+
+AI Culling section:
+Photo grid
+Selection highlights
+“Processing” state (fake animation)
+
+👉 This is a key investor moment → make it smooth
+
+5. Messages System
+Left panel: conversations list
+Right panel: chat interface
+
+Features:
+
+Sent/received messages
+Typing indicator (fake)
+Message timestamps
+
+👉 Preload conversation like:
+Client asking about wedding shoot
+Photographer responding with timeline
+
+6. Booking Flow (VERY IMPORTANT)
+
+Simulate full flow:
+
+Step 1: Booking card
+Step 2: Chat
+Step 3: Contract signing
+Step 4: Payment confirmation
+
+👉 Show progress visually (1 → 2 → 3 → 4)
+
+7. Notifications Page
+List view:
+New message
+Booking confirmed
+Gallery delivered
+Filters:
+All / Unread / Messages / Projects
+8. Gallery View (EMOTIONAL MOMENT)
+Clean photo gallery UI
+Large hero image (wedding couple)
+Thumbnails below
+Actions:
+Download
+Share
+Favorite
+
+👉 This should feel premium and emotional
+
+🎬 INTERACTIONS (CRITICAL)
+Smooth page transitions
+Subtle hover animations
+Soft glow on active elements
+Click interactions must feel real
+💡 MOCK DATA
+
+Use realistic names:
+
+Jessica Yunard (client)
+Sarah Chen
+Wedding project examples
+
+Use real-world text:
+
+“Wedding Moments”
+“Gallery delivered”
+“Contract signed”
+🚫 IMPORTANT
+No backend logic required
+No loading delays longer than 1 sec
+Avoid empty screens — everything should feel alive
+🏆 FINAL OUTPUT
+
+A clickable demo that:
+
+Looks like a real SaaS product
+Flows like a real user journey
+Can be presented in under 2–3 minutes
+Impresses investors visually and conceptually
