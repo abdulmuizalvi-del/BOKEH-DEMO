@@ -2,11 +2,12 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { useState } from 'react'
 import {
   Aperture, LayoutDashboard, FolderOpen, Calendar,
-  MessageSquare, Bell, Users, Settings, LifeBuoy, Sparkles, LogOut
+  MessageSquare, Bell, Users, Settings, LifeBuoy, Sparkles, LogOut, Menu, X
 } from 'lucide-react'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 
 const NAV_ITEMS = [
   { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
@@ -21,9 +22,10 @@ const NAV_ITEMS = [
 
 export function Sidebar() {
   const pathname = usePathname()
+  const [open, setOpen] = useState(false)
 
-  return (
-    <div className="w-[260px] h-screen bg-sidebar border-r border-sidebar-border flex flex-col justify-between shrink-0 fixed left-0 top-0 z-50">
+  const SidebarContent = () => (
+    <div className="flex flex-col justify-between h-full">
       <div>
         <div className="p-6 flex items-center gap-3">
           <div className="w-10 h-10 rounded-xl bg-gradient-primary flex items-center justify-center shadow-lg shadow-fuchsia-500/20">
@@ -36,7 +38,7 @@ export function Sidebar() {
           {NAV_ITEMS.map((item) => {
             const isActive = pathname?.startsWith(item.href) ?? false
             return (
-              <Link key={item.name} href={item.href} className="block relative">
+              <Link key={item.name} href={item.href} className="block relative" onClick={() => setOpen(false)}>
                 {isActive && (
                   <motion.div
                     layoutId="creator-active-nav"
@@ -74,5 +76,56 @@ export function Sidebar() {
         </Link>
       </div>
     </div>
+  )
+
+  return (
+    <>
+      {/* Desktop sidebar */}
+      <div className="hidden md:flex w-[260px] h-screen bg-sidebar border-r border-sidebar-border flex-col shrink-0 fixed left-0 top-0 z-50">
+        <SidebarContent />
+      </div>
+
+      {/* Mobile top bar */}
+      <div className="md:hidden fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 h-14 bg-sidebar border-b border-sidebar-border">
+        <div className="flex items-center gap-2">
+          <div className="w-8 h-8 rounded-lg bg-gradient-primary flex items-center justify-center">
+            <Aperture className="text-white w-4 h-4" />
+          </div>
+          <span className="font-display font-bold text-base tracking-wider text-white">BOKEH</span>
+        </div>
+        <button onClick={() => setOpen(true)} className="p-2 text-white rounded-lg hover:bg-white/10 transition-colors">
+          <Menu className="w-6 h-6" />
+        </button>
+      </div>
+
+      {/* Mobile drawer */}
+      <AnimatePresence>
+        {open && (
+          <>
+            <motion.div
+              key="backdrop"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="md:hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-sm"
+              onClick={() => setOpen(false)}
+            />
+            <motion.div
+              key="drawer"
+              initial={{ x: -280 }}
+              animate={{ x: 0 }}
+              exit={{ x: -280 }}
+              transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+              className="md:hidden fixed left-0 top-0 bottom-0 w-[260px] z-50 bg-sidebar border-r border-sidebar-border"
+            >
+              <button onClick={() => setOpen(false)} className="absolute top-4 right-4 p-1.5 text-muted-foreground hover:text-white rounded-lg hover:bg-white/10 transition-colors">
+                <X className="w-5 h-5" />
+              </button>
+              <SidebarContent />
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+    </>
   )
 }

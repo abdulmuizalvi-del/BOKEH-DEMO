@@ -11,7 +11,7 @@ export function ClientLayout({ children }: { children: ReactNode }) {
   return (
     <div className="flex min-h-screen bg-background text-foreground">
       <ClientSidebar />
-      <div className="flex-1 ml-[260px] min-h-screen relative">
+      <div className="flex-1 md:ml-[260px] min-h-screen relative">
         <AnimatePresence mode="wait">
           <motion.main
             key={pathname}
@@ -19,7 +19,7 @@ export function ClientLayout({ children }: { children: ReactNode }) {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.3, ease: 'easeOut' }}
-            className="p-8 max-w-7xl mx-auto w-full"
+            className="pt-14 md:pt-0 p-4 md:p-8 max-w-7xl mx-auto w-full"
           >
             {children}
           </motion.main>
