@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "bokeh",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["--filter", "@workspace/bokeh", "dev"],
+      "port": 5175
+    }
+  ]
+}

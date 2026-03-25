@@ -1,31 +1,26 @@
-import { Link, useLocation } from "wouter";
-import { 
-  Aperture, LayoutDashboard, FolderOpen, Calendar, 
-  MessageSquare, Bell, Users, Settings, LifeBuoy, Sparkles, LogOut, Compass, BookOpen
-} from "lucide-react";
-import { motion } from "framer-motion";
-import { useMessages, useNotifications } from "@/hooks/use-app-data";
+'use client'
+
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+import {
+  Aperture, LayoutDashboard, FolderOpen, Calendar,
+  MessageSquare, Bell, Users, Settings, LifeBuoy, Sparkles, LogOut
+} from 'lucide-react'
+import { motion } from 'framer-motion'
 
 const NAV_ITEMS = [
-  { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
-  { name: "Discover", href: "/discover", icon: Compass },
-  { name: "My Bookings", href: "/my-booking/1", icon: BookOpen },
-  { name: "Projects", href: "/projects", icon: FolderOpen },
-  { name: "Booking", href: "/booking", icon: Calendar },
-  { name: "Messages", href: "/messages", icon: MessageSquare, badge: "messages" },
-  { name: "Notifications", href: "/notifications", icon: Bell, badge: "notifications" },
-  { name: "Clients", href: "/clients", icon: Users },
-  { name: "Settings", href: "/settings", icon: Settings },
-  { name: "Support", href: "/support", icon: LifeBuoy },
-];
+  { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
+  { name: 'Projects', href: '/projects', icon: FolderOpen },
+  { name: 'Booking', href: '/booking', icon: Calendar },
+  { name: 'Messages', href: '/messages', icon: MessageSquare },
+  { name: 'Notifications', href: '/notifications', icon: Bell },
+  { name: 'Clients', href: '/clients', icon: Users },
+  { name: 'Settings', href: '/settings', icon: Settings },
+  { name: 'Support', href: '/support', icon: LifeBuoy },
+]
 
 export function Sidebar() {
-  const [location] = useLocation();
-  const { data: messages } = useMessages();
-  const { data: notifications } = useNotifications();
-
-  const unreadMessages = messages?.filter(m => m.unread).length || 0;
-  const unreadNotifications = notifications?.filter(n => n.unread).length || 0;
+  const pathname = usePathname()
 
   return (
     <div className="w-[260px] h-screen bg-sidebar border-r border-sidebar-border flex flex-col justify-between shrink-0 fixed left-0 top-0 z-50">
@@ -39,43 +34,24 @@ export function Sidebar() {
 
         <nav className="px-4 py-2 flex flex-col gap-1">
           {NAV_ITEMS.map((item) => {
-            const isActive = location.startsWith(item.href);
-            
-            let badgeCount = 0;
-            if (item.badge === "messages") badgeCount = unreadMessages;
-            if (item.badge === "notifications") badgeCount = unreadNotifications;
-
+            const isActive = pathname?.startsWith(item.href) ?? false
             return (
               <Link key={item.name} href={item.href} className="block relative">
                 {isActive && (
-                  <motion.div 
-                    layoutId="active-nav"
+                  <motion.div
+                    layoutId="creator-active-nav"
                     className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-primary rounded-r-full shadow-[0_0_10px_rgba(217,70,239,0.5)]"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                    transition={{ type: 'spring', stiffness: 300, damping: 30 }}
                   />
                 )}
-                <div className={`
-                  flex items-center justify-between px-3 py-3 rounded-lg transition-all duration-200
-                  ${isActive 
-                    ? "bg-white/5 text-white" 
-                    : "text-muted-foreground hover:bg-white/5 hover:text-white"
-                  }
-                `}>
-                  <div className="flex items-center gap-3">
-                    <item.icon className={`w-5 h-5 ${isActive ? "text-fuchsia-400" : ""}`} />
-                    <span className="font-medium text-sm">{item.name}</span>
-                  </div>
-                  
-                  {badgeCount > 0 && (
-                    <div className="bg-fuchsia-500/20 text-fuchsia-400 text-xs font-bold px-2 py-0.5 rounded-full">
-                      {badgeCount}
-                    </div>
-                  )}
+                <div className={`flex items-center gap-3 px-3 py-3 rounded-lg transition-all duration-200 ${isActive ? 'bg-white/5 text-white' : 'text-muted-foreground hover:bg-white/5 hover:text-white'}`}>
+                  <item.icon className={`w-5 h-5 ${isActive ? 'text-fuchsia-400' : ''}`} />
+                  <span className="font-medium text-sm">{item.name}</span>
                 </div>
               </Link>
-            );
+            )
           })}
         </nav>
       </div>
@@ -92,12 +68,11 @@ export function Sidebar() {
             View Plans
           </button>
         </div>
-
         <Link href="/login" className="flex items-center gap-3 px-3 py-3 text-muted-foreground hover:text-destructive transition-colors rounded-lg hover:bg-destructive/10">
           <LogOut className="w-5 h-5" />
           <span className="font-medium text-sm">Sign out</span>
         </Link>
       </div>
     </div>
-  );
+  )
 }
