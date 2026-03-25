@@ -1,8 +1,0 @@
-{
-  "/(client)/client/dashboard/page": "app/(client)/client/dashboard/page.js",
-  "/(app)/settings/page": "app/(app)/settings/page.js",
-  "/(auth)/login/page": "app/(auth)/login/page.js",
-  "/(client)/client/galleries/page": "app/(client)/client/galleries/page.js",
-  "/(client)/client/schedule/page": "app/(client)/client/schedule/page.js",
-  "/(client)/client/contracts/page": "app/(client)/client/contracts/page.js"
-}
