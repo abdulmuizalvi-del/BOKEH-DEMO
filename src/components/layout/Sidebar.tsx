@@ -81,12 +81,12 @@ export function Sidebar() {
   return (
     <>
       {/* Desktop sidebar */}
-      <div className="hidden md:flex w-[260px] h-screen bg-sidebar border-r border-sidebar-border flex-col shrink-0 fixed left-0 top-0 z-50">
+      <div className="hidden md:flex w-[260px] h-screen glass-sidebar flex-col shrink-0 fixed left-0 top-0 z-50">
         <SidebarContent />
       </div>
 
       {/* Mobile top bar */}
-      <div className="md:hidden fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 h-14 bg-sidebar border-b border-sidebar-border">
+      <div className="md:hidden fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 h-14 glass-nav">
         <div className="flex items-center gap-2">
           <div className="w-8 h-8 rounded-lg bg-gradient-primary flex items-center justify-center">
             <Aperture className="text-white w-4 h-4" />
@@ -116,7 +116,7 @@ export function Sidebar() {
               animate={{ x: 0 }}
               exit={{ x: -280 }}
               transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-              className="md:hidden fixed left-0 top-0 bottom-0 w-[260px] z-50 bg-sidebar border-r border-sidebar-border"
+              className="md:hidden fixed left-0 top-0 bottom-0 w-[260px] z-50 glass-sidebar"
             >
               <button onClick={() => setOpen(false)} className="absolute top-4 right-4 p-1.5 text-muted-foreground hover:text-white rounded-lg hover:bg-white/10 transition-colors">
                 <X className="w-5 h-5" />
