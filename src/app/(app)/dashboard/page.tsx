@@ -8,44 +8,47 @@ export default function Dashboard() {
   const { data: projects, isLoading } = useProjects()
 
   const stats = [
-    { label: 'Active Projects', value: '4', icon: FolderOpen, color: 'text-fuchsia-400', bg: 'bg-fuchsia-400/10' },
-    { label: 'Pending Bookings', value: '2', icon: Calendar, color: 'text-orange-400', bg: 'bg-orange-400/10' },
-    { label: 'Unread Messages', value: '8', icon: MessageSquare, color: 'text-blue-400', bg: 'bg-blue-400/10' },
-    { label: 'Gallery Deliveries', value: '12', icon: ImageIcon, color: 'text-teal-400', bg: 'bg-teal-400/10' },
+    { label: 'Active Projects', value: '4', icon: FolderOpen, color: '#d4851a', bg: 'rgba(212,133,26,0.1)' },
+    { label: 'Pending Bookings', value: '2', icon: Calendar, color: '#e8a030', bg: 'rgba(232,160,48,0.1)' },
+    { label: 'Unread Messages', value: '8', icon: MessageSquare, color: '#c74683', bg: 'rgba(199,70,131,0.1)' },
+    { label: 'Gallery Deliveries', value: '12', icon: ImageIcon, color: '#a040a0', bg: 'rgba(160,64,160,0.1)' },
   ]
 
   return (
     <>
-      <div className="flex justify-between items-end mb-8">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4 mb-8">
         <div>
-          <h1 className="text-3xl font-display font-bold text-white">Overview</h1>
-          <p className="text-muted-foreground mt-1">Welcome back. Here&apos;s what&apos;s happening today.</p>
+          <h1 className="text-2xl md:text-3xl font-bold text-white">Overview</h1>
+          <p className="text-white/40 mt-1">Welcome back. Here&apos;s what&apos;s happening today.</p>
         </div>
-        <button className="flex items-center gap-2 px-4 py-2 bg-gradient-primary text-white font-medium rounded-lg hover:shadow-[0_0_15px_rgba(217,70,239,0.4)] transition-all">
+        <button
+          className="flex items-center gap-2 px-4 py-2 text-white font-medium rounded-lg transition-all w-full sm:w-auto justify-center"
+          style={{ background: 'linear-gradient(135deg, #d4851a, #c74683)' }}
+        >
           <Plus className="w-4 h-4" />
           New Project
         </button>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 mb-10">
         {stats.map((stat) => (
-          <div key={stat.label} className="bg-card border border-white/5 rounded-2xl p-5 hover:border-white/10 transition-colors">
-            <div className="flex justify-between items-start mb-4">
-              <div className={`p-3 rounded-xl ${stat.bg}`}>
-                <stat.icon className={`w-5 h-5 ${stat.color}`} />
+          <div key={stat.label} className="border border-white/5 rounded-2xl p-4 md:p-5 hover:border-white/10 transition-colors" style={{ background: 'rgba(30,18,12,0.6)' }}>
+            <div className="flex justify-between items-start mb-3 md:mb-4">
+              <div className="p-2 md:p-3 rounded-xl" style={{ background: stat.bg }}>
+                <stat.icon className="w-4 h-4 md:w-5 md:h-5" style={{ color: stat.color }} />
               </div>
             </div>
-            <h3 className="text-3xl font-bold text-white font-display">{stat.value}</h3>
-            <p className="text-sm text-muted-foreground font-medium">{stat.label}</p>
+            <h3 className="text-2xl md:text-3xl font-bold text-white">{stat.value}</h3>
+            <p className="text-xs md:text-sm text-white/40 font-medium">{stat.label}</p>
           </div>
         ))}
       </div>
 
-      <div className="grid lg:grid-cols-3 gap-8">
+      <div className="grid lg:grid-cols-3 gap-6 md:gap-8">
         <div className="lg:col-span-2">
           <div className="flex justify-between items-center mb-4">
-            <h2 className="text-xl font-display font-bold text-white">Recent Projects</h2>
-            <Link href="/projects" className="text-sm text-fuchsia-400 hover:text-fuchsia-300 flex items-center gap-1">
+            <h2 className="text-lg md:text-xl font-bold text-white">Recent Projects</h2>
+            <Link href="/projects" className="text-sm flex items-center gap-1 hover:opacity-80 transition-opacity" style={{ color: '#d4851a' }}>
               View all <ArrowUpRight className="w-4 h-4" />
             </Link>
           </div>
@@ -56,7 +59,7 @@ export default function Dashboard() {
             ) : (
               projects?.slice(0, 2).map((project) => (
                 <Link key={project.id} href={`/projects/${project.id}`}>
-                  <div className="group bg-card border border-white/5 rounded-2xl overflow-hidden hover:border-fuchsia-500/30 transition-all cursor-pointer">
+                  <div className="group border border-white/5 rounded-2xl overflow-hidden hover:border-white/20 transition-all cursor-pointer" style={{ background: 'rgba(30,18,12,0.6)' }}>
                     <div className="h-40 overflow-hidden relative">
                       <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent z-10" />
                       <img
@@ -72,7 +75,7 @@ export default function Dashboard() {
                     </div>
                     <div className="p-4">
                       <h3 className="font-bold text-lg text-white mb-1">{project.title}</h3>
-                      <div className="flex justify-between text-sm text-muted-foreground">
+                      <div className="flex justify-between text-sm text-white/40">
                         <span>{project.client}</span>
                         <span>{project.date}</span>
                       </div>
@@ -85,8 +88,8 @@ export default function Dashboard() {
         </div>
 
         <div>
-          <h2 className="text-xl font-display font-bold text-white mb-4">Upcoming Bookings</h2>
-          <div className="bg-card border border-white/5 rounded-2xl p-5">
+          <h2 className="text-lg md:text-xl font-bold text-white mb-4">Upcoming Bookings</h2>
+          <div className="border border-white/5 rounded-2xl p-5" style={{ background: 'rgba(30,18,12,0.6)' }}>
             <div className="space-y-4">
               {[
                 { name: 'Sarah & Mike', type: 'Wedding Consultation', time: 'Today, 2:00 PM', initial: 'SM' },
@@ -99,8 +102,8 @@ export default function Dashboard() {
                   </div>
                   <div>
                     <h4 className="font-medium text-white">{booking.name}</h4>
-                    <p className="text-xs text-muted-foreground">{booking.type}</p>
-                    <div className="text-xs font-medium text-fuchsia-400 mt-1">{booking.time}</div>
+                    <p className="text-xs text-white/40">{booking.type}</p>
+                    <div className="text-xs font-medium mt-1" style={{ color: '#d4851a' }}>{booking.time}</div>
                   </div>
                 </div>
               ))}

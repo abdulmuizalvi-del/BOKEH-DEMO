@@ -32,46 +32,46 @@ export default function ClientGalleries() {
   return (
     <>
       <div className="mb-6">
-        <h1 className="text-3xl font-display font-bold text-white mb-1">My Galleries</h1>
-        <p className="text-muted-foreground text-sm">Tina & Rob's Wedding — June 14, 2027</p>
+        <h1 className="text-2xl md:text-3xl font-bold text-white mb-1">My Galleries</h1>
+        <p className="text-white/40 text-sm">Tina & Rob's Wedding — June 14, 2027</p>
       </div>
 
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 gap-3">
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-2 px-3 py-1.5 bg-green-500/10 border border-green-500/30 rounded-full">
             <CheckCircle2 className="w-3.5 h-3.5 text-green-400" />
             <span className="text-xs font-bold text-green-400">Gallery Delivered</span>
           </div>
-          <span className="text-sm text-muted-foreground">{PHOTOS.length} photos</span>
+          <span className="text-sm text-white/40">{PHOTOS.length} photos</span>
         </div>
         <div className="flex gap-2">
-          <button className="flex items-center gap-2 px-4 py-2 bg-card border border-white/10 text-white text-sm font-semibold rounded-xl hover:border-white/20 hover:bg-white/5 transition-all">
-            <Share2 className="w-4 h-4" /> Share All
+          <button className="flex items-center gap-2 px-3 md:px-4 py-2 border border-white/10 text-white text-sm font-semibold rounded-xl hover:border-white/20 hover:bg-white/5 transition-all" style={{ background: 'rgba(30,18,12,0.6)' }}>
+            <Share2 className="w-4 h-4" /> <span className="hidden sm:inline">Share All</span>
           </button>
-          <button className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-fuchsia-500 to-violet-500 text-white text-sm font-semibold rounded-xl hover:shadow-[0_0_20px_rgba(217,70,239,0.4)] transition-all">
-            <Download className="w-4 h-4" /> Download All
+          <button className="flex items-center gap-2 px-3 md:px-4 py-2 text-white text-sm font-semibold rounded-xl transition-all" style={{ background: 'linear-gradient(135deg, #d4851a, #c74683)' }}>
+            <Download className="w-4 h-4" /> <span className="hidden sm:inline">Download All</span>
           </button>
         </div>
       </div>
 
-      <div className="relative rounded-2xl overflow-hidden group cursor-pointer mb-6" style={{ height: '55vh' }}>
+      <div className="relative rounded-2xl overflow-hidden group cursor-pointer mb-6 h-[40vh] md:h-[55vh]">
         <img src={PHOTOS[heroIdx]} alt="hero" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.02]" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
-        <div className="absolute bottom-0 left-0 right-0 p-6 flex items-end justify-between opacity-0 group-hover:opacity-100 transition-opacity">
-          <div className="flex gap-3">
-            <button className="px-5 py-2.5 bg-white text-black font-bold rounded-xl flex items-center gap-2 hover:bg-gray-100 text-sm"><Download className="w-4 h-4" /> Download</button>
-            <button className="px-5 py-2.5 bg-white/20 backdrop-blur text-white font-bold rounded-xl border border-white/20 flex items-center gap-2 hover:bg-white/30 text-sm"><Share2 className="w-4 h-4" /> Share</button>
+        <div className="absolute bottom-0 left-0 right-0 p-4 md:p-6 flex items-end justify-between opacity-0 group-hover:opacity-100 transition-opacity">
+          <div className="flex gap-2 md:gap-3">
+            <button className="px-4 md:px-5 py-2 md:py-2.5 bg-white text-black font-bold rounded-xl flex items-center gap-2 hover:bg-gray-100 text-sm"><Download className="w-4 h-4" /> Download</button>
+            <button className="px-4 md:px-5 py-2 md:py-2.5 bg-white/20 backdrop-blur text-white font-bold rounded-xl border border-white/20 flex items-center gap-2 hover:bg-white/30 text-sm"><Share2 className="w-4 h-4" /> Share</button>
           </div>
-          <button onClick={() => toggle(heroIdx)} className={`w-11 h-11 rounded-xl flex items-center justify-center border transition-all ${liked.has(heroIdx) ? 'bg-rose-500/30 border-rose-500/60 text-rose-400' : 'bg-black/40 backdrop-blur border-white/20 text-white'}`}>
+          <button onClick={() => toggle(heroIdx)} className={`w-10 h-10 md:w-11 md:h-11 rounded-xl flex items-center justify-center border transition-all ${liked.has(heroIdx) ? 'bg-rose-500/30 border-rose-500/60 text-rose-400' : 'bg-black/40 backdrop-blur border-white/20 text-white'}`}>
             <Heart className={`w-5 h-5 ${liked.has(heroIdx) ? 'fill-current' : ''}`} />
           </button>
         </div>
       </div>
 
-      <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
+      <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-6 gap-2 md:gap-3">
         {PHOTOS.map((url, i) => (
           <motion.div key={i} onClick={() => setHeroIdx(i)}
-            className={`relative rounded-xl overflow-hidden cursor-pointer aspect-square group ${heroIdx === i ? 'ring-2 ring-fuchsia-500 shadow-[0_0_15px_rgba(217,70,239,0.4)]' : 'ring-1 ring-white/10 hover:ring-white/30'}`}
+            className={`relative rounded-xl overflow-hidden cursor-pointer aspect-square group transition-all ${heroIdx === i ? 'ring-2 ring-amber-600 shadow-lg shadow-amber-600/30' : 'ring-1 ring-white/10 hover:ring-white/30'}`}
           >
             <img src={url} alt={`photo ${i + 1}`} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
             <button onClick={e => { e.stopPropagation(); toggle(i) }} className={`absolute top-1.5 right-1.5 w-6 h-6 rounded-full flex items-center justify-center transition-all opacity-0 group-hover:opacity-100 ${liked.has(i) ? 'bg-rose-500/80 text-white opacity-100' : 'bg-black/50 text-white'}`}>

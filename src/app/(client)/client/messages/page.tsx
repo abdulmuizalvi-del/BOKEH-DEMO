@@ -7,7 +7,7 @@ import { Search, Send, Plus, Info, MessageSquare, ArrowLeft, Users } from 'lucid
 import { motion, AnimatePresence } from 'framer-motion'
 import { createClient } from '@/lib/supabase/client'
 
-export default function Messages() {
+export default function ClientMessages() {
   const { user } = useAuth()
   const { conversations, loading: listLoading, tableReady } = useConversations()
   const [activeUserId, setActiveUserId] = useState<string | null>(null)
@@ -38,7 +38,6 @@ export default function Messages() {
     if (!newChatEmail.trim()) return
 
     const supabase = createClient()
-    // Find user by email in profiles
     const { data: profile } = await supabase
       .from('profiles')
       .select('id')
@@ -46,7 +45,7 @@ export default function Messages() {
       .single()
 
     if (!profile) {
-      setNewChatError('User not found. Make sure they have an account.')
+      setNewChatError('User not found.')
       return
     }
 
@@ -66,30 +65,8 @@ export default function Messages() {
           <div className="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4" style={{ background: 'linear-gradient(135deg, #d4851a, #c74683)' }}>
             <MessageSquare className="w-8 h-8 text-white" />
           </div>
-          <h2 className="text-xl font-bold text-white mb-2">Set Up Messaging</h2>
-          <p className="text-white/50 text-sm mb-4">
-            To enable real-time messaging, create a <code className="px-1.5 py-0.5 rounded bg-white/10 text-white/80">messages</code> table
-            and a <code className="px-1.5 py-0.5 rounded bg-white/10 text-white/80">profiles</code> table in your Supabase dashboard.
-          </p>
-          <div className="text-left p-4 rounded-xl border border-white/10 text-xs text-white/60 font-mono" style={{ background: 'rgba(0,0,0,0.3)' }}>
-            <p className="mb-2">-- messages table</p>
-            <p>create table messages (</p>
-            <p className="pl-4">id uuid default gen_random_uuid() primary key,</p>
-            <p className="pl-4">sender_id uuid references auth.users(id),</p>
-            <p className="pl-4">receiver_id uuid references auth.users(id),</p>
-            <p className="pl-4">text text not null,</p>
-            <p className="pl-4">sender_name text,</p>
-            <p className="pl-4">created_at timestamptz default now()</p>
-            <p>);</p>
-            <p className="mt-3 mb-2">-- profiles table</p>
-            <p>create table profiles (</p>
-            <p className="pl-4">id uuid references auth.users(id) primary key,</p>
-            <p className="pl-4">full_name text,</p>
-            <p className="pl-4">avatar_url text,</p>
-            <p className="pl-4">email text,</p>
-            <p className="pl-4">role text default &apos;creator&apos;</p>
-            <p>);</p>
-          </div>
+          <h2 className="text-xl font-bold text-white mb-2">Messaging Setup Required</h2>
+          <p className="text-white/50 text-sm">Please ask your admin to set up the messages table in Supabase.</p>
         </div>
       </div>
     )
@@ -97,7 +74,7 @@ export default function Messages() {
 
   return (
     <div className="flex h-[calc(100vh-8rem)] border border-white/10 rounded-2xl overflow-hidden shadow-2xl" style={{ background: 'rgba(30,18,12,0.6)' }}>
-      {/* Left Panel - Conversation List */}
+      {/* Left Panel */}
       <div className={`w-full md:w-[320px] border-r border-white/10 flex flex-col ${activeUserId ? 'hidden md:flex' : 'flex'}`} style={{ background: 'rgba(20,12,8,0.5)' }}>
         <div className="p-4 border-b border-white/10">
           <div className="flex items-center justify-between mb-4">
@@ -116,23 +93,22 @@ export default function Messages() {
               type="text"
               value={searchQuery}
               onChange={e => setSearchQuery(e.target.value)}
-              placeholder="Search conversations..."
+              placeholder="Search..."
               className="w-full border border-white/10 rounded-lg py-2 pl-9 pr-4 text-sm text-white focus:outline-none focus:ring-1 transition-all"
               style={{ background: 'rgba(0,0,0,0.3)' }}
             />
           </div>
         </div>
 
-        {/* New Chat Modal */}
         {showNewChat && (
           <div className="p-4 border-b border-white/10" style={{ background: 'rgba(0,0,0,0.2)' }}>
             <form onSubmit={handleStartNewChat} className="space-y-2">
-              <p className="text-sm text-white/60">Start a new conversation</p>
+              <p className="text-sm text-white/60">Message a photographer</p>
               <input
                 type="email"
                 value={newChatEmail}
                 onChange={e => setNewChatEmail(e.target.value)}
-                placeholder="Enter user email..."
+                placeholder="Enter their email..."
                 className="w-full border border-white/10 rounded-lg py-2 px-3 text-sm text-white focus:outline-none focus:ring-1 transition-all"
                 style={{ background: 'rgba(0,0,0,0.3)' }}
                 autoFocus
@@ -159,7 +135,6 @@ export default function Messages() {
             <div className="p-8 text-center">
               <Users className="w-10 h-10 text-white/20 mx-auto mb-3" />
               <p className="text-white/40 text-sm">No conversations yet</p>
-              <p className="text-white/30 text-xs mt-1">Start a new chat to connect</p>
             </div>
           ) : (
             filteredConversations.map(conv => (
@@ -168,10 +143,7 @@ export default function Messages() {
                 onClick={() => setActiveUserId(conv.userId)}
                 className={`flex gap-3 p-4 cursor-pointer transition-colors border-b border-white/5 ${activeUserId === conv.userId ? 'bg-white/10' : 'hover:bg-white/5'}`}
               >
-                <div className="relative shrink-0">
-                  <img src={conv.avatar} alt={conv.name} className="w-12 h-12 rounded-full object-cover" />
-                  {conv.online && <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-black rounded-full" />}
-                </div>
+                <img src={conv.avatar} alt={conv.name} className="w-12 h-12 rounded-full object-cover shrink-0" />
                 <div className="flex-1 min-w-0">
                   <div className="flex justify-between items-center mb-1">
                     <h4 className="font-semibold text-white truncate text-sm">{conv.name}</h4>
@@ -186,11 +158,10 @@ export default function Messages() {
         </div>
       </div>
 
-      {/* Right Panel - Chat Thread */}
+      {/* Right Panel */}
       <div className={`flex-1 flex flex-col relative ${!activeUserId ? 'hidden md:flex' : 'flex'}`} style={{ background: 'rgba(26,15,10,0.4)' }}>
         {activeUserId && partnerInfo ? (
           <>
-            {/* Chat Header */}
             <div className="h-16 border-b border-white/10 flex items-center justify-between px-4 md:px-6" style={{ background: 'rgba(20,12,8,0.5)', backdropFilter: 'blur(10px)' }}>
               <div className="flex items-center gap-3">
                 <button className="md:hidden mr-1 text-white/60 hover:text-white" onClick={() => setActiveUserId(null)}>
@@ -205,7 +176,6 @@ export default function Messages() {
               <button className="text-white/40 hover:text-white"><Info className="w-5 h-5" /></button>
             </div>
 
-            {/* Messages */}
             <div className="flex-1 overflow-y-auto p-4 md:p-6 space-y-4 flex flex-col">
               {threadLoading ? (
                 <div className="m-auto">
@@ -248,7 +218,6 @@ export default function Messages() {
               <div ref={messagesEndRef} />
             </div>
 
-            {/* Message Input */}
             <div className="p-3 md:p-4 border-t border-white/10" style={{ background: 'rgba(20,12,8,0.5)' }}>
               <form onSubmit={handleSend} className="flex gap-3">
                 <input
@@ -272,17 +241,17 @@ export default function Messages() {
           </>
         ) : (
           <div className="m-auto flex flex-col items-center justify-center text-center p-8 max-w-md">
-            <div className="w-24 h-24 bg-white/5 rounded-full flex items-center justify-center mb-6 border border-white/10 shadow-2xl">
+            <div className="w-24 h-24 bg-white/5 rounded-full flex items-center justify-center mb-6 border border-white/10">
               <MessageSquare className="w-10 h-10 text-white/20" />
             </div>
             <h3 className="text-2xl font-bold text-white mb-2">No conversation selected</h3>
-            <p className="text-white/40 mb-8">Choose a message from the list or start a new conversation.</p>
+            <p className="text-white/40 mb-8">Choose a message or start a new conversation with a photographer.</p>
             <button
               onClick={() => setShowNewChat(true)}
               className="px-6 py-3 text-white font-semibold rounded-xl transition-all flex items-center gap-2"
               style={{ background: 'linear-gradient(135deg, #d4851a, #c74683)' }}
             >
-              <Plus className="w-4 h-4" /> Start a new message
+              <Plus className="w-4 h-4" /> Message a photographer
             </button>
           </div>
         )}

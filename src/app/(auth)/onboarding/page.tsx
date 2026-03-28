@@ -6,55 +6,57 @@ import { motion } from 'framer-motion'
 
 export default function Onboarding() {
   return (
-    <div className="min-h-screen w-full flex flex-col items-center justify-center bg-background relative p-4">
-      <div className="absolute top-0 w-full h-96 bg-gradient-to-b from-fuchsia-900/10 to-transparent pointer-events-none" />
+    <div className="min-h-screen w-full flex flex-col items-center justify-center relative p-4" style={{ background: '#1a0f0a' }}>
+      <div className="absolute top-0 w-full h-96 pointer-events-none" style={{ background: 'linear-gradient(to bottom, rgba(212,133,26,0.08), transparent)' }} />
 
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         className="text-center mb-12 relative z-10"
       >
-        <h1 className="text-4xl md:text-5xl font-display font-bold text-white mb-4">How will you use BOKEH?</h1>
-        <p className="text-xl text-muted-foreground">Select your primary role to customize your experience.</p>
+        <h1 className="text-3xl md:text-5xl font-bold text-white mb-4">How will you use BOKEH?</h1>
+        <p className="text-lg md:text-xl text-white/40">Select your primary role to customize your experience.</p>
       </motion.div>
 
-      <div className="grid md:grid-cols-2 gap-6 w-full max-w-4xl relative z-10">
+      <div className="grid md:grid-cols-2 gap-4 md:gap-6 w-full max-w-4xl relative z-10">
         <Link href="/dashboard">
           <motion.div
             whileHover={{ y: -5, scale: 1.02 }}
-            className="cursor-pointer group relative bg-card border border-white/5 rounded-3xl p-8 hover:border-fuchsia-500/50 transition-all duration-300"
+            className="cursor-pointer group relative border border-white/5 rounded-3xl p-6 md:p-8 hover:border-white/20 transition-all duration-300"
+            style={{ background: 'rgba(30,18,12,0.6)' }}
           >
-            <div className="absolute inset-0 bg-gradient-to-br from-fuchsia-500/5 to-transparent rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity" />
-            <div className="w-16 h-16 rounded-2xl bg-fuchsia-500/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-              <Camera className="w-8 h-8 text-fuchsia-400" />
+            <div className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity" style={{ background: 'linear-gradient(to bottom right, rgba(212,133,26,0.05), transparent)' }} />
+            <div className="w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform" style={{ background: 'rgba(212,133,26,0.1)' }}>
+              <Camera className="w-8 h-8" style={{ color: '#d4851a' }} />
             </div>
-            <h2 className="text-2xl font-display font-bold text-white mb-2 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-fuchsia-400 group-hover:to-orange-400 transition-all">As a Creator</h2>
-            <p className="text-muted-foreground mb-6">For photographers, videographers, and studios.</p>
+            <h2 className="text-xl md:text-2xl font-bold text-white mb-2">As a Creator</h2>
+            <p className="text-white/40 mb-6">For photographers, videographers, and studios.</p>
             <ul className="space-y-2">
               {['Manage bookings & clients', 'Share project galleries', 'Digital contracts & invoices'].map(f => (
                 <li key={f} className="flex items-center gap-2 text-sm text-white/70">
-                  <CheckCircle2 className="w-4 h-4 text-fuchsia-400 shrink-0" />{f}
+                  <CheckCircle2 className="w-4 h-4 shrink-0" style={{ color: '#d4851a' }} />{f}
                 </li>
               ))}
             </ul>
           </motion.div>
         </Link>
 
-        <Link href="/dashboard">
+        <Link href="/client/dashboard">
           <motion.div
             whileHover={{ y: -5, scale: 1.02 }}
-            className="cursor-pointer group relative bg-card border border-white/5 rounded-3xl p-8 hover:border-teal-500/50 transition-all duration-300"
+            className="cursor-pointer group relative border border-white/5 rounded-3xl p-6 md:p-8 hover:border-white/20 transition-all duration-300"
+            style={{ background: 'rgba(30,18,12,0.6)' }}
           >
-            <div className="absolute inset-0 bg-gradient-to-br from-teal-500/5 to-transparent rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity" />
-            <div className="w-16 h-16 rounded-2xl bg-teal-500/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-              <UserCircle className="w-8 h-8 text-teal-400" />
+            <div className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity" style={{ background: 'linear-gradient(to bottom right, rgba(199,70,131,0.05), transparent)' }} />
+            <div className="w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform" style={{ background: 'rgba(199,70,131,0.1)' }}>
+              <UserCircle className="w-8 h-8" style={{ color: '#c74683' }} />
             </div>
-            <h2 className="text-2xl font-display font-bold text-white mb-2 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-teal-400 group-hover:to-cyan-400 transition-all">As a Client</h2>
-            <p className="text-muted-foreground mb-6">For individuals booking photography services.</p>
+            <h2 className="text-xl md:text-2xl font-bold text-white mb-2">As a Client</h2>
+            <p className="text-white/40 mb-6">For individuals booking photography services.</p>
             <ul className="space-y-2">
               {['Browse & book photographers', 'View your project galleries', 'Sign contracts & pay online'].map(f => (
                 <li key={f} className="flex items-center gap-2 text-sm text-white/70">
-                  <CheckCircle2 className="w-4 h-4 text-teal-400 shrink-0" />{f}
+                  <CheckCircle2 className="w-4 h-4 shrink-0" style={{ color: '#c74683' }} />{f}
                 </li>
               ))}
             </ul>

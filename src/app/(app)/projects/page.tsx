@@ -12,19 +12,23 @@ export default function Projects() {
     <>
       <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 gap-4">
         <div>
-          <h1 className="text-3xl font-display font-bold text-white">Projects</h1>
-          <p className="text-muted-foreground mt-1">You currently have {projects?.length || 0} active sessions.</p>
+          <h1 className="text-2xl md:text-3xl font-bold text-white">Projects</h1>
+          <p className="text-white/40 mt-1">You currently have {projects?.length || 0} active sessions.</p>
         </div>
-        <div className="flex items-center gap-4 w-full md:w-auto">
-          <div className="relative w-full md:w-64">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+        <div className="flex items-center gap-3 w-full md:w-auto">
+          <div className="relative flex-1 md:w-64">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/30" />
             <input
               type="text"
               placeholder="Search projects..."
-              className="w-full bg-card border border-white/10 rounded-lg py-2 pl-9 pr-4 text-sm focus:outline-none focus:border-fuchsia-500 transition-colors text-white"
+              className="w-full border border-white/10 rounded-lg py-2 pl-9 pr-4 text-sm focus:outline-none focus:ring-1 transition-colors text-white"
+              style={{ background: 'rgba(30,18,12,0.6)' }}
             />
           </div>
-          <button className="shrink-0 flex items-center gap-2 px-4 py-2 bg-gradient-primary text-white font-medium rounded-lg hover:shadow-[0_0_15px_rgba(217,70,239,0.4)] transition-all">
+          <button
+            className="shrink-0 flex items-center gap-2 px-4 py-2 text-white font-medium rounded-lg transition-all"
+            style={{ background: 'linear-gradient(135deg, #d4851a, #c74683)' }}
+          >
             <Plus className="w-4 h-4" />
             <span className="hidden sm:inline">New Commission</span>
           </button>
@@ -32,18 +36,19 @@ export default function Projects() {
       </div>
 
       {isLoading ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
           {[1, 2, 3, 4].map(i => <div key={i} className="h-[300px] bg-white/5 animate-pulse rounded-2xl" />)}
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
           {projects?.map((project, idx) => (
             <Link key={project.id} href={`/projects/${project.id}`}>
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: idx * 0.1 }}
-                className="group relative h-[320px] rounded-2xl overflow-hidden cursor-pointer shadow-lg bg-card"
+                className="group relative h-[280px] md:h-[320px] rounded-2xl overflow-hidden cursor-pointer shadow-lg"
+                style={{ background: 'rgba(30,18,12,0.6)' }}
               >
                 <img
                   src={project.coverUrl}
@@ -62,7 +67,7 @@ export default function Projects() {
                   <Bookmark className="w-4 h-4" />
                 </button>
 
-                <div className="absolute bottom-0 left-0 right-0 p-5">
+                <div className="absolute bottom-0 left-0 right-0 p-4 md:p-5">
                   <div className="flex gap-2 mb-2">
                     {project.tags.map(tag => (
                       <span key={tag} className="text-[10px] px-2 py-0.5 rounded-full bg-white/10 text-white/80 border border-white/5">
@@ -70,7 +75,7 @@ export default function Projects() {
                       </span>
                     ))}
                   </div>
-                  <h3 className="text-xl font-bold text-white mb-1 font-display">{project.title}</h3>
+                  <h3 className="text-lg md:text-xl font-bold text-white mb-1">{project.title}</h3>
                   <div className="flex justify-between items-center text-sm text-white/60">
                     <span>{project.date}</span>
                     <span className="flex items-center gap-1"><ImageIcon className="w-3 h-3" /> {project.imageCount}</span>

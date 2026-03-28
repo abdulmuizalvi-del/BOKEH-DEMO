@@ -16,39 +16,40 @@ export default function Clients() {
     <>
       <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 gap-4">
         <div>
-          <h1 className="text-3xl font-display font-bold text-white">Clients</h1>
-          <p className="text-muted-foreground mt-1">Manage your contacts and their details.</p>
+          <h1 className="text-2xl md:text-3xl font-bold text-white">Clients</h1>
+          <p className="text-white/40 mt-1">Manage your contacts and their details.</p>
         </div>
         <div className="relative w-full md:w-64">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-          <input type="text" placeholder="Search clients..." className="w-full bg-card border border-white/10 rounded-lg py-2 pl-9 pr-4 text-sm text-white focus:outline-none focus:border-fuchsia-500 transition-colors" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/30" />
+          <input type="text" placeholder="Search clients..." className="w-full border border-white/10 rounded-lg py-2 pl-9 pr-4 text-sm text-white focus:outline-none focus:ring-1 transition-colors" style={{ background: 'rgba(30,18,12,0.6)' }} />
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
         {MOCK_CLIENTS.map((client, idx) => (
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: idx * 0.05 }}
             key={client.id}
-            className="bg-card border border-white/5 rounded-2xl p-6 hover:border-white/20 transition-colors group"
+            className="border border-white/5 rounded-2xl p-5 md:p-6 hover:border-white/20 transition-colors group"
+            style={{ background: 'rgba(30,18,12,0.6)' }}
           >
             <div className="flex justify-between items-start mb-4">
-              <img src={client.avatar} alt={client.name} className="w-16 h-16 rounded-full object-cover ring-2 ring-white/10" />
+              <img src={client.avatar} alt={client.name} className="w-14 h-14 md:w-16 md:h-16 rounded-full object-cover ring-2 ring-white/10" />
               <button className="text-white/40 hover:text-white"><MoreHorizontal className="w-5 h-5" /></button>
             </div>
             <h3 className="font-bold text-lg text-white mb-1">{client.name}</h3>
             <div className="space-y-2 mt-4 mb-6">
-              <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                <Mail className="w-4 h-4" /> <span className="truncate">{client.email}</span>
+              <div className="flex items-center gap-2 text-sm text-white/40">
+                <Mail className="w-4 h-4 shrink-0" /> <span className="truncate">{client.email}</span>
               </div>
-              <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                <Phone className="w-4 h-4" /> <span>{client.phone}</span>
+              <div className="flex items-center gap-2 text-sm text-white/40">
+                <Phone className="w-4 h-4 shrink-0" /> <span>{client.phone}</span>
               </div>
             </div>
             <div className="pt-4 border-t border-white/5 flex justify-between items-center">
-              <span className="text-xs font-semibold text-white/50 uppercase tracking-wider">Total Projects</span>
+              <span className="text-xs font-semibold text-white/30 uppercase tracking-wider">Total Projects</span>
               <span className="bg-white/10 text-white text-xs font-bold px-2 py-1 rounded-md">{client.projects}</span>
             </div>
           </motion.div>

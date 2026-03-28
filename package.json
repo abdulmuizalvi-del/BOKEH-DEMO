@@ -72,6 +72,8 @@
     "zod": "*"
   },
   "dependencies": {
+    "@supabase/ssr": "^0.9.0",
+    "@supabase/supabase-js": "^2.100.1",
     "@tailwindcss/postcss": "^4.2.2",
     "next": "^15.5.14"
   }
